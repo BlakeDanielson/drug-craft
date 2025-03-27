@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drug Craft | Gamifying our Collapse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Drug Craft</h1>
+      <p class="subtitle">Craft and combine substances in this educational simulation</p>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="instructions">
+      <h3>How to Play</h3>
+      <p>Start with basic substances and methods, then combine them to discover new drugs and compounds. Drag elements together or click them sequentially to see what you can create.</p>
+      <p><strong>Note:</strong> This game is purely educational and aims to explore the social and economic impacts of drug policies.</p>
+    </div>
+    
+    <div class="game-container">
+      <div class="elements-panel" id="elements-panel">
+        <input type="text" class="search-bar" id="search-bar" placeholder="Search discoveries...">
+        <div class="categories" id="categories">
+          <!-- Categories will be dynamically added -->
+        </div>
+        <div id="elements-list">
+          <!-- Initial elements will be populated here -->
+        </div>
+      </div>
+      
+      <div class="crafting-area">
+        <div class="combination-zone" id="combination-zone">
+          <div class="placeholder" id="first-element"></div>
+          <span>+</span>
+          <div class="placeholder" id="second-element"></div>
+        </div>
+        
+        <div class="result-zone" id="result-zone">
+          <p>Combine elements to see the result</p>
+        </div>
+        
+        <button class="reset-button" id="reset-button">Reset Discoveries</button>
+      </div>
+    </div>
+    
+    <a href="/" class="back-link">← Back to Games Hub</a>
+  </div>
+  
+  <script src="game.js"></script>
+  <script src="api.js"></script>
+</body>
+</html>
