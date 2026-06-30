@@ -1,56 +1,74 @@
-# Drug Craft
+# 🧪 Drug Craft
 
-An educational game exploring drug policies through an Infinite Craft-style combination mechanic.
+An [Infinite Craft](https://neal.fun/infinite-craft/)-style crafting game — but instead of
+combining the four classical elements into the universe, you combine **Plant**, **Chemical**,
+**Water**, and **Fire** to discover the entire (satirical) pharmacopeia. Drag two elements
+together and see what you get. Then combine *those*. The tree never ends.
 
-## About
+> **Satire & commentary.** This is a word game in the spirit of Infinite Craft. The element
+> names are pop-culture references; the game contains **no real synthesis information,
+> dosages, or how-to instructions** of any kind, and does not encourage drug use. It pokes at
+> drug culture and policy the way Infinite Craft pokes at cosmology.
 
-Drug Craft is an interactive web-based game that allows players to combine different elements to create and discover various substances. The game aims to provide an educational experience exploring the social and economic aspects of drug policies.
+## Play it
 
-## Features
+**Zero setup — just open the file.**
 
-- Combine basic elements to discover new substances
-- AI-powered combination generation for nearly unlimited discoveries
-- Search and category filtering for discovered elements
-- Persistent storage of your discoveries using localStorage
-- Responsive design for both desktop and mobile play
+```
+open index.html        # macOS
+# or double-click index.html in your file browser
+```
 
-## How to Play
+That's it. Everything (the combination engine, your discoveries, the layout) runs in the
+browser. Progress is saved to `localStorage`.
 
-1. Start with the four basic elements: Plant, Chemical, Method, and Container
-2. Drag or click elements to combine them
-3. Discover new substances through combinations
-4. Use the search bar to find specific discoveries
-5. Filter discoveries by category
-6. Reset your progress if needed with the reset button
+### How to play
 
-## Running the Game
+1. You start with the four pillars: 🌿 Plant · ⚗️ Chemical · 💧 Water · 🔥 Fire.
+2. **Click** a discovery in the sidebar to drop it on the table, or **press-and-drag** it out.
+3. **Drag one token onto another** to combine them. The two merge into something new.
+4. A gold **"First Discovery"** banner + sparkles fire the first time anyone makes a given item.
+5. Search and re-sort your discoveries (by time / A–Z / type) in the sidebar.
+6. **Double-click** a token to clear it; **Clear table** sweeps the canvas (keeps discoveries);
+   **Reset progress** wipes everything back to the four pillars.
 
-### Standalone Mode
+There are dozens of hand-authored recipes (Cannabis → Joint, Coca Leaf + Chemical → Cocaine,
+Poppy → Opium → Morphine → Heroin → Fentanyl, Mushroom → Psilocybin, and so on), plus a
+deterministic generator that turns *any* two elements into a plausible new one — so you can
+keep combining forever, and the same pair always gives the same result.
 
-Simply open the `index.html` file in your browser to play the game locally. In this mode, the game will use hardcoded combinations when you combine elements.
+## Optional: true AI combinations (Claude)
 
-### With AI Integration
+Want genuinely open-ended generation like the real Infinite Craft? Run the included backend
+and the game will ask Claude to invent each combination, falling back to the offline engine if
+the server is unreachable.
 
-For the AI-powered combination generation, you need to run the game through the Next.js server:
+```bash
+npm install
+export ANTHROPIC_API_KEY=sk-ant-...      # your key
+npm start                                 # serves the game + API on :8787
+```
 
-1. Make sure the game is integrated with the browser-games project
-2. Set up your OpenAI API key by copying `.env.local.example` to `.env.local` and adding your key
-3. Run the development server with `npm run dev`
-4. Access the game through the browser-games interface
+Then open **http://localhost:8787**, tick the **🤖 AI mode** box in the sidebar (the badge
+turns green when it connects), and start crafting. Untick it to go back offline at any time.
 
-## Technical Details
+- Model defaults to **Claude Haiku 4.5** — fast and cheap, ideal for a generation-per-combine
+  game. Override with `DRUGCRAFT_MODEL=claude-opus-4-8` for richer results.
+- Results are cached server-side per pair, so repeats are free and stay consistent.
+- See `.env.example` for all options.
 
-The game consists of:
+## Project layout
 
-- `index.html` - The main HTML file with the game structure
-- `styles.css` - CSS styling for the game
-- `game.js` - Core game logic and functionality
-- `api.js` - Fallback API handler for standalone mode
+| File          | What it is |
+| ------------- | ---------- |
+| `index.html`  | Page structure (canvas + discoveries sidebar) |
+| `styles.css`  | The clean, Infinite-Craft-inspired look |
+| `engine.js`   | The offline combination engine: recipes → transform rules → procedural blend. Pure, deterministic, no dependencies. |
+| `game.js`     | UI controller: drag-and-drop, state, persistence, search/sort, toasts, the optional AI hook |
+| `server.js`   | Optional Node backend that serves the game and proxies combinations to Claude |
+| `package.json`, `.env.example` | For the optional backend |
 
-## Integration with Browser Games
+## Tech
 
-If integrating with the browser-games project, an additional API endpoint is available at `/api/generate-combination` which leverages OpenAI's GPT models to generate unique combinations based on the elements provided.
-
-## Educational Purpose
-
-This game is designed purely for educational purposes to explore the social, medical, and policy implications of various substances. It does not promote drug use or illegal activities.
+Vanilla HTML/CSS/JS for the game (no build step, no framework). The optional backend is plain
+Node with the official [`@anthropic-ai/sdk`](https://www.npmjs.com/package/@anthropic-ai/sdk).
