@@ -1,0 +1,16 @@
+{
+  "name": "drug-craft",
+  "version": "1.0.0",
+  "description": "An Infinite Craft-style crafting game where you combine elements to discover the pharmacopeia. Satirical / educational. Plays fully offline; optional Claude-powered backend for endless AI combinations.",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["game", "infinite-craft", "crafting", "claude", "satire"],
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0"
+  }
+}
